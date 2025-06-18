@@ -3,171 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impact Loan Fund Quiz</title>
+    <title>Impact Loan Fund - Business Loan Inquiry</title>
     <style>
         body {
             font-family: sans-serif;
             line-height: 1.6;
             margin: 2em;
         }
-        .quiz-container {
+        .form-container {
             max-width: 800px;
             margin: auto;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 10px;
         }
-        .question {
+        .question, .form-group {
             margin-bottom: 20px;
         }
-        .question p {
+        .question p, .form-group p {
             font-weight: bold;
+            margin-bottom: 8px;
         }
-        .options div {
-            margin-bottom: 10px;
+        label {
+            font-weight: normal;
+        }
+        input[type="text"], input[type="email"], input[type="tel"], input[type="number"], textarea {
+            width: 95%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+             height: 100px;
+        }
+        .address-group {
+            display: flex;
+            gap: 10px;
+        }
+        .address-group .city { flex-grow: 2; }
+        .address-group .state, .address-group .zip { flex-grow: 1; }
+        small {
+            display: block;
+            margin-top: 5px;
+            font-style: italic;
+            color: #555;
         }
         button {
-            padding: 10px 20px;
+            padding: 12px 25px;
             background-color: #007bff;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
         }
         button:hover {
             background-color: #0056b3;
         }
-        .result {
+        #results {
             margin-top: 20px;
-            padding: 10px;
+            padding: 15px;
             border-radius: 5px;
         }
-        .correct {
+        .pre-qualified {
             background-color: #e7f4e7;
             border: 1px solid #d0e9d0;
         }
-        .incorrect {
+        .not-qualified {
             background-color: #fce8e6;
             border: 1px solid #f8d7da;
+        }
+        .lender-list {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
         }
     </style>
 </head>
 <body>
 
-    <div class="quiz-container">
-        <h1>How Much Do You Know About the Impact Loan Fund?</h1>
-        <p>Test your knowledge about the small business loans offered by the Impact Loan Fund (ILF).</p>
-        <form id="quizForm">
-            <div class="question">
-                <p>1. What is the primary geographic area served by the Impact Loan Fund? </p>
-                <div class="options">
-                    <div><input type="radio" name="q1" value="a"> a) All of Philadelphia</div>
-                    <div><input type="radio" name="q1" value="b"> b) The Greater Kensington area</div>
-                    <div><input type="radio" name="q1" value="c"> c) Center City</div>
-                    <div><input type="radio" name="q1" value="d"> d) All of Pennsylvania</div>
+    <div class="form-container">
+        <h1>Impact Loan Fund: Business Loan Inquiry</h1>
+        <p>Fields marked with an asterisk (*) are required.</p>
+
+        <form id="loanInquiryForm">
+            <div class="form-group">
+                <p>What is the name of your business?*</p>
+                <input type="text" name="businessName" required>
+            </div>
+            <div class="form-group">
+                <p>Where is the primary location of your business (address)?*</p>
+                <label for="street">Street Address</label><br>
+                <input type="text" id="street" name="streetAddress" required><br><br>
+                <div class="address-group">
+                    <div class="city">
+                        <label for="city">City</label><br>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                    <div class="state">
+                        <label for="state">State</label><br>
+                        <input type="text" id="state" name="state" required>
+                    </div>
+                    <div class="zip">
+                        <label for="zip">ZIP</label><br>
+                        <input type="text" id="zip" name="zip" required>
+                    </div>
                 </div>
             </div>
 
-            <div class="question">
-                <p>2. What is the loan amount range offered by the ILF? </p>
-                <div class="options">
-                    <div><input type="radio" name="q2" value="a"> a) $5,000 to $50,000</div>
-                    <div><input type="radio" name="q2" value="b"> b) $10,000 to $100,000</div>
-                    <div><input type="radio" name="q2" value="c"> c) $25,000 to $250,000</div>
-                    <div><input type="radio" name="q2" value="d"> d) $50,000 to $500,000</div>
-                </div>
+            <div class="form-group">
+                <p>Who is the contact person?*</p>
+                <input type="text" name="contactPerson" required>
             </div>
-
-            <div class="question">
-                <p>3. True or False: The ILF primarily serves new startup businesses. </p>
-                <div class="options">
-                    <div><input type="radio" name="q3" value="a"> a) True</div>
-                    <div><input type="radio" name="q3" value="b"> b) False</div>
-                </div>
+            <div class="form-group">
+                <p>What is the best way to contact you?*</p>
+                <label for="phone">Phone Number</label><br>
+                <input type="tel" id="phone" name="phone" required><br><br>
+                <label for="email">Email address</label><br>
+                <input type="email" id="email" name="email" required>
             </div>
-
             <div class="question">
-                <p>4. Which of the following is NOT a listed use for loan funds? </p>
-                <div class="options">
-                    <div><input type="radio" name="q4" value="a"> a) Equipment</div>
-                    <div><input type="radio" name="q4" value="b"> b) Payroll for personal staff</div>
-                    <div><input type="radio" name="q4" value="c"> c) Building Acquisition</div>
-                    <div><input type="radio" name="q4" value="d"> d) Working Capital</div>
-                </div>
-            </div>
-
-            <div class="question">
-                <p>5. What is the maximum term for an ILF loan? </p>
-                <div class="options">
-                    <div><input type="radio" name="q5" value="a"> a) 3 years</div>
-                    <div><input type="radio" name="q5" value="b"> b) 5 years</div>
-                    <div><input type="radio" name="q5" value="c"> c) 7 years</div>
-                    <div><input type="radio" name="q5" value="d"> d) 10 years</div>
-                </div>
-            </div>
-
-             <div class="question">
-                <p>6. Which of the following is a required fee for a loan? </p>
-                <div class="options">
-                    <div><input type="radio" name="q6" value="a"> a) Application Fee</div>
-                    <div><input type="radio" name="q6" value="b"> b) Closing Fee of 1.5%</div>
-                    <div><input type="radio" name="q6" value="c"> c) Pre-payment Penalty</div>
-                    <div><input type="radio" name="q6" value="d"> d) Annual Service Fee</div>
-                </div>
-            </div>
-
-            <div class="question">
-                <p>7. True or False: Personal guarantees are required for loans. </p>
-                <div class="options">
-                    <div><input type="radio" name="q7" value="a"> a) True</div>
-                    <div><input type="radio" name="q7" value="b"> b) False</div>
-                </div>
+                <p>Can we text you?*</p>
+                <input type="radio" name="canText" value="yes" required> Yes
+                <input type="radio" name="canText" value="no"> No
             </div>
             
-            <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+            <div class="form-group">
+                <p>What loan amount are you seeking?*</p>
+                <input type="number" name="loanAmount" placeholder="e.g., 50000" required>
+                <small>Note: Loan amounts range from $25,000 to $250,000.</small>
+            </div>
+            <div class="form-group">
+                <p>Please tell us a little bit about what your financing need is?*</p>
+                <textarea name="financingNeed" required></textarea>
+                <small>Eligible uses include Business Expansion, Equipment, Building Improvements, Working Capital, and Building Acquisition.</small>
+            </div>
+            
+            <hr>
+            <h3 style="margin-top: 30px;">Pre-Qualification Checklist</h3>
+            <div class="question">
+                <p>Is your business located within the Greater Kensington area?*</p>
+                <input type="radio" name="inKensington" value="yes" required> Yes
+                <input type="radio" name="inKensington" value="no"> No
+                 <small>Note: The Impact Loan Fund serves the Greater Kensington area in Lower Northeast Philadelphia.</small>
+            </div>
+            <div class="question">
+                <p>Is your business currently operating?*</p>
+                <input type="radio" name="isOperating" value="yes" required> Yes
+                <input type="radio" name="isOperating" value="no"> No
+                <small>Note: ILF primarily serves existing operating businesses.</small>
+            </div>
+            <div class="question">
+                <p>Are you able to provide business assets as collateral and a personal guarantee for the loan?*</p>
+                <input type="radio" name="hasCollateral" value="yes" required> Yes
+                <input type="radio" name="hasCollateral" value="no"> No
+                <small>Note: Business assets and personal guarantees are required.</small>
+            </div>
+
+            <button type="button" onclick="submitInquiry()">Submit Inquiry</button>
         </form>
 
         <div id="results"></div>
     </div>
 
     <script>
-        function submitQuiz() {
-            const answers = {
-                q1: 'b', // The Greater Kensington area 
-                q2: 'c', // $25,000 to $250,000 
-                q3: 'b', // False, it primarily serves existing operating businesses 
-                q4: 'b', // Payroll for personal staff is not listed 
-                q5: 'c', // Up to 7 years 
-                q6: 'b', // Closing Fee: 1.5% 
-                q7: 'a'  // True, Guarantees Required 
-            };
-
-            const form = document.getElementById('quizForm');
+        function submitInquiry() {
+            const form = document.getElementById('loanInquiryForm');
             const resultsDiv = document.getElementById('results');
             resultsDiv.innerHTML = '';
-            let score = 0;
-            const totalQuestions = Object.keys(answers).length;
+            resultsDiv.className = '';
 
-            for (const [question, correctAnswer] of Object.entries(answers)) {
-                const selected = form.elements[question].value;
-                const questionElement = form.querySelector(`input[name="${question}"]`).closest('.question');
-                const result = document.createElement('div');
-                result.classList.add('result');
-
-                if (selected === correctAnswer) {
-                    score++;
-                    result.classList.add('correct');
-                    result.innerHTML = `${question.toUpperCase()}: Correct!`;
-                } else {
-                    result.classList.add('incorrect');
-                    result.innerHTML = `${question.toUpperCase()}: Incorrect.`;
-                }
-                questionElement.appendChild(result);
+            if (!form.checkValidity()) {
+                alert('Please fill out all required fields marked with an asterisk (*).');
+                return;
             }
 
-            const finalScore = document.createElement('h3');
-            finalScore.innerHTML = `You scored ${score} out of ${totalQuestions}!`;
-            resultsDiv.appendChild(finalScore);
+            const loanAmount = parseFloat(form.elements['loanAmount'].value);
+            const inKensington = form.elements['inKensington'].value;
+            const isOperating = form.elements['isOperating'].value;
+            const hasCollateral = form.elements['hasCollateral'].value;
+
+            let issues = [];
+
+            if (isNaN(loanAmount) || loanAmount < 25000 || loanAmount > 250000) {
+                issues.push('Your requested loan amount is outside the $25,000 to $250,000 range.');
+            }
+            if (inKensington !== 'yes') {
+                issues.push('Your business appears to be outside the Greater Kensington service area.');
+            }
+            if (isOperating !== 'yes') {
+                issues.push('The fund is primarily for existing, operating businesses.');
+            }
+            if (hasCollateral !== 'yes') {
+                issues.push('Collateral and a personal guarantee are required for all loans.');
+            }
+
+            if (issues.length > 0) {
+                resultsDiv.classList.add('not-qualified');
+                let message = '<h3>Thank you for your inquiry. Based on your answers, you may not be eligible for an ILF loan at this time.</h3>';
+                message += '<p>Here are the potential issues we identified:</p><ul>';
+                issues.forEach(issue => {
+                    message += `<li>${issue}</li>`;
+                });
+                message += '</ul>';
+                
+                // Add new section with alternative lenders
+                message += `<div class="lender-list">
+                               <h4>Alternative Lenders to Consider</h4>
+                               <p>While ILF may not be the right fit, other Philadelphia lenders may be able to help. Here are a few to consider based on your needs:</p>
+                               <p><strong>For Startups and Loans Under $50,000:</strong></p>
+                               <ul>
+                                   <li><strong>Entrepreneur Works:</strong> Specializes in providing microloans and business counseling, often to startup and early-stage businesses.</li>
+                                   <li><strong>Finanta:</strong> Offers a variety of loan products, including microloans for entrepreneurs who may not qualify for traditional financing.</li>
+                               </ul>
+                               <p><strong>For General Business Lending Across Philadelphia:</strong></p>
+                               <ul>
+                                   <li><strong>The Enterprise Center:</strong> Focuses on supporting minority and women-owned businesses with capital and resources throughout the Philadelphia region.</li>
+                                   <li><strong>PIDC (Philadelphia Industrial Development Corporation):</strong> Offers a wide range of flexible financial products to support business growth across the city.</li>
+                               </ul>
+                           </div>`;
+
+                resultsDiv.innerHTML = message;
+
+            } else {
+                resultsDiv.classList.add('pre-qualified');
+                let message = '<h3>Thank you! Your inquiry has been submitted.</h3>';
+                message += '<p>Based on your answers, you appear to be a good candidate for this loan! This does not guarantee approval, but we encourage you to proceed.</p>';
+                message += '<p><strong>Next Steps:</strong> An ILF representative will review your information and contact you soon. For immediate questions, you can reach out directly:</p>';
+                message += `<ul>
+                                <li><strong>Email:</strong> loan@impactservices.org</li>
+                                <li><strong>Call:</strong> (215) 974-0900</li>
+                           </ul>`;
+                resultsDiv.innerHTML = message;
+                form.reset();
+            }
         }
     </script>
 
