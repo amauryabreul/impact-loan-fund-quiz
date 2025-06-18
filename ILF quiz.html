@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact Loan Fund Quiz</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            margin: 2em;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question p {
+            font-weight: bold;
+        }
+        .options div {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .correct {
+            background-color: #e7f4e7;
+            border: 1px solid #d0e9d0;
+        }
+        .incorrect {
+            background-color: #fce8e6;
+            border: 1px solid #f8d7da;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>How Much Do You Know About the Impact Loan Fund?</h1>
+        <p>Test your knowledge about the small business loans offered by the Impact Loan Fund (ILF).</p>
+        <form id="quizForm">
+            <div class="question">
+                <p>1. What is the primary geographic area served by the Impact Loan Fund? </p>
+                <div class="options">
+                    <div><input type="radio" name="q1" value="a"> a) All of Philadelphia</div>
+                    <div><input type="radio" name="q1" value="b"> b) The Greater Kensington area</div>
+                    <div><input type="radio" name="q1" value="c"> c) Center City</div>
+                    <div><input type="radio" name="q1" value="d"> d) All of Pennsylvania</div>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>2. What is the loan amount range offered by the ILF? </p>
+                <div class="options">
+                    <div><input type="radio" name="q2" value="a"> a) $5,000 to $50,000</div>
+                    <div><input type="radio" name="q2" value="b"> b) $10,000 to $100,000</div>
+                    <div><input type="radio" name="q2" value="c"> c) $25,000 to $250,000</div>
+                    <div><input type="radio" name="q2" value="d"> d) $50,000 to $500,000</div>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>3. True or False: The ILF primarily serves new startup businesses. </p>
+                <div class="options">
+                    <div><input type="radio" name="q3" value="a"> a) True</div>
+                    <div><input type="radio" name="q3" value="b"> b) False</div>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>4. Which of the following is NOT a listed use for loan funds? </p>
+                <div class="options">
+                    <div><input type="radio" name="q4" value="a"> a) Equipment</div>
+                    <div><input type="radio" name="q4" value="b"> b) Payroll for personal staff</div>
+                    <div><input type="radio" name="q4" value="c"> c) Building Acquisition</div>
+                    <div><input type="radio" name="q4" value="d"> d) Working Capital</div>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>5. What is the maximum term for an ILF loan? </p>
+                <div class="options">
+                    <div><input type="radio" name="q5" value="a"> a) 3 years</div>
+                    <div><input type="radio" name="q5" value="b"> b) 5 years</div>
+                    <div><input type="radio" name="q5" value="c"> c) 7 years</div>
+                    <div><input type="radio" name="q5" value="d"> d) 10 years</div>
+                </div>
+            </div>
+
+             <div class="question">
+                <p>6. Which of the following is a required fee for a loan? </p>
+                <div class="options">
+                    <div><input type="radio" name="q6" value="a"> a) Application Fee</div>
+                    <div><input type="radio" name="q6" value="b"> b) Closing Fee of 1.5%</div>
+                    <div><input type="radio" name="q6" value="c"> c) Pre-payment Penalty</div>
+                    <div><input type="radio" name="q6" value="d"> d) Annual Service Fee</div>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>7. True or False: Personal guarantees are required for loans. </p>
+                <div class="options">
+                    <div><input type="radio" name="q7" value="a"> a) True</div>
+                    <div><input type="radio" name="q7" value="b"> b) False</div>
+                </div>
+            </div>
+            
+            <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+        </form>
+
+        <div id="results"></div>
+    </div>
+
+    <script>
+        function submitQuiz() {
+            const answers = {
+                q1: 'b', // The Greater Kensington area 
+                q2: 'c', // $25,000 to $250,000 
+                q3: 'b', // False, it primarily serves existing operating businesses 
+                q4: 'b', // Payroll for personal staff is not listed 
+                q5: 'c', // Up to 7 years 
+                q6: 'b', // Closing Fee: 1.5% 
+                q7: 'a'  // True, Guarantees Required 
+            };
+
+            const form = document.getElementById('quizForm');
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+            let score = 0;
+            const totalQuestions = Object.keys(answers).length;
+
+            for (const [question, correctAnswer] of Object.entries(answers)) {
+                const selected = form.elements[question].value;
+                const questionElement = form.querySelector(`input[name="${question}"]`).closest('.question');
+                const result = document.createElement('div');
+                result.classList.add('result');
+
+                if (selected === correctAnswer) {
+                    score++;
+                    result.classList.add('correct');
+                    result.innerHTML = `${question.toUpperCase()}: Correct!`;
+                } else {
+                    result.classList.add('incorrect');
+                    result.innerHTML = `${question.toUpperCase()}: Incorrect.`;
+                }
+                questionElement.appendChild(result);
+            }
+
+            const finalScore = document.createElement('h3');
+            finalScore.innerHTML = `You scored ${score} out of ${totalQuestions}!`;
+            resultsDiv.appendChild(finalScore);
+        }
+    </script>
+
+</body>
+</html>
