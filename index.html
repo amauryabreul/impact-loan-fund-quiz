@@ -1,31 +1,3 @@
-Certainly. I have removed the embedded map and updated the logic for the "Maybe" option on the location question.
-
-Now, if a user selects "Maybe," they will still pass the pre-qualification check, but a special note will be added to their results message. This note will inform them that their address must be verified to confirm they are in the service area.
-
-### Preview of New "Maybe" Logic
-
-If a user fills out the form correctly and selects **Maybe** for the location question, they will now see this specific success message:
-
-\<div id="results" class="pre-qualified" style="margin-top: 20px; padding: 15px; border-radius: 5px; background-color: rgb(231, 244, 231); border: 1px solid rgb(208, 233, 208);"\>
-\<h3\>Thank you\! Your inquiry has been submitted.\</h3\>
-\<p\>Based on your answers, you appear to be a good candidate for this loan\! This does not guarantee approval, but we encourage you to proceed.\</p\>
-\<p style="padding:10px; border: 1px solid \#e6db55; background-color: \#fff9c4; border-radius: 4px;"\>
-\<strong\>Action Required:\</strong\> Your business location needs to be verified to confirm it is within our service area.
-\</p\>
-\<p\>\<strong\>Next Steps:\</strong\> An ILF representative will review your information and contact you soon. For immediate questions, you can reach out directly:\</p\>
-\<ul\>
-\<li\>\<strong\>Email:\</strong\> loan@impactservices.org\</li\>
-\<li\>\<strong\>Call:\</strong\> (215) 974-0900\</li\>
-\</ul\>
-\</div\>
-
------
-
-### Complete Code (Map Removed & New Logic)
-
-Here is the full, updated code. I have removed the map `div` from the HTML and adjusted the `submitInquiry()` function in the JavaScript to include the new conditional message.
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -275,4 +247,3 @@ Here is the full, updated code. I have removed the map `div` from the HTML and a
 
 </body>
 </html>
-```
