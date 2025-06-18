@@ -48,6 +48,23 @@
             font-style: italic;
             color: #555;
         }
+        .map-container {
+            position: relative;
+            padding-bottom: 75%; /* 4:3 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
         button {
             padding: 12px 25px;
             background-color: #007bff;
@@ -131,33 +148,41 @@
             <div class="form-group">
                 <p>What loan amount are you seeking?*</p>
                 <input type="number" name="loanAmount" placeholder="e.g., 50000" required>
-                <small>Note: Loan amounts range from $25,000 to $250,000.</small>
+                <small>Note: Loan amounts range from $25,000 to $250,000. </small>
             </div>
             <div class="form-group">
                 <p>Please tell us a little bit about what your financing need is?*</p>
                 <textarea name="financingNeed" required></textarea>
-                <small>Eligible uses include Business Expansion, Equipment, Building Improvements, Working Capital, and Building Acquisition.</small>
+                <small>Eligible uses include Business Expansion, Equipment, Building Improvements, Working Capital, and Building Acquisition. </small>
             </div>
             
             <hr>
             <h3 style="margin-top: 30px;">Pre-Qualification Checklist</h3>
+
+            <div class="question">
+                 <p>Use the map below to confirm your business is in the service area, you may have to zoom in to Philadelphia to see the boundries of our  market. Please note that the orange boundries are for our Jumpstart Kensington real estate development program and not related to our business loans </p>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/d/embed?mid=1zJcH5Xz2itUJdgzz5sDKUwqI6Z3Yb7M&ehbc=2E312F"></iframe>
+                </div>
+            </div>
+
             <div class="question">
                 <p>Is your business located within the Greater Kensington area?*</p>
                 <input type="radio" name="inKensington" value="yes" required> Yes
                 <input type="radio" name="inKensington" value="no"> No
-                 <small>Note: The Impact Loan Fund serves the Greater Kensington area in Lower Northeast Philadelphia.</small>
+                 <small>Note: The Impact Loan Fund serves the Greater Kensington area in Lower Northeast Philadelphia. </small>
             </div>
             <div class="question">
                 <p>Is your business currently operating?*</p>
                 <input type="radio" name="isOperating" value="yes" required> Yes
                 <input type="radio" name="isOperating" value="no"> No
-                <small>Note: ILF primarily serves existing operating businesses.</small>
+                <small>Note: ILF primarily serves existing operating businesses. </small>
             </div>
             <div class="question">
                 <p>Are you able to provide business assets as collateral and a personal guarantee for the loan?*</p>
                 <input type="radio" name="hasCollateral" value="yes" required> Yes
                 <input type="radio" name="hasCollateral" value="no"> No
-                <small>Note: Business assets and personal guarantees are required.</small>
+                <small>Note: Business assets and personal guarantees are required. </small>
             </div>
 
             <button type="button" onclick="submitInquiry()">Submit Inquiry</button>
@@ -186,16 +211,16 @@
             let issues = [];
 
             if (isNaN(loanAmount) || loanAmount < 25000 || loanAmount > 250000) {
-                issues.push('Your requested loan amount is outside the $25,000 to $250,000 range.');
+                issues.push('Your requested loan amount is outside the $25,000 to $250,000 range. ');
             }
             if (inKensington !== 'yes') {
-                issues.push('Your business appears to be outside the Greater Kensington service area.');
+                issues.push('Your business appears to be outside the Greater Kensington service area. ');
             }
             if (isOperating !== 'yes') {
-                issues.push('The fund is primarily for existing, operating businesses.');
+                issues.push('The fund is primarily for existing, operating businesses. ');
             }
             if (hasCollateral !== 'yes') {
-                issues.push('Collateral and a personal guarantee are required for all loans.');
+                issues.push('Collateral and a personal guarantee are required for all loans. ');
             }
 
             if (issues.length > 0) {
@@ -207,7 +232,6 @@
                 });
                 message += '</ul>';
                 
-                // Add new section with alternative lenders
                 message += `<div class="lender-list">
                                <h4>Alternative Lenders to Consider</h4>
                                <p>While ILF may not be the right fit, other Philadelphia lenders may be able to help. Here are a few to consider based on your needs:</p>
@@ -231,14 +255,17 @@
                 message += '<p>Based on your answers, you appear to be a good candidate for this loan! This does not guarantee approval, but we encourage you to proceed.</p>';
                 message += '<p><strong>Next Steps:</strong> An ILF representative will review your information and contact you soon. For immediate questions, you can reach out directly:</p>';
                 message += `<ul>
-                                <li><strong>Email:</strong> loan@impactservices.org</li>
-                                <li><strong>Call:</strong> (215) 974-0900</li>
+                                <li><strong>Email:</strong> loan@impactservices.org </li>
+                                <li><strong>Call:</strong> (215) 974-0900 </li>
                            </ul>`;
                 resultsDiv.innerHTML = message;
                 form.reset();
             }
         }
     </script>
+
+</body>
+</html>
 
 </body>
 </html>
