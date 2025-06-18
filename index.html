@@ -5,193 +5,185 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Impact Loan Fund - Business Loan Inquiry</title>
     <style>
-        body {
-            font-family: sans-serif;
-            line-height: 1.6;
-            margin: 2em;
-        }
-        .form-container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-        }
-        .question, .form-group {
-            margin-bottom: 20px;
-        }
-        .question p, .form-group p {
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        label {
-            font-weight: normal;
-        }
-        input[type="text"], input[type="email"], input[type="tel"], input[type="number"], textarea {
-            width: 95%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        textarea {
-             height: 100px;
-        }
-        .address-group {
-            display: flex;
-            gap: 10px;
-        }
+        body { font-family: sans-serif; line-height: 1.6; margin: 2em; }
+        .form-container { max-width: 800px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
+        .question, .form-group { margin-bottom: 20px; }
+        .question p, .form-group p { font-weight: bold; margin-bottom: 8px; }
+        label { font-weight: normal; }
+        input[type="text"], input[type="email"], input[type="tel"], input[type="number"], textarea { width: 95%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        textarea { height: 100px; }
+        .address-group { display: flex; gap: 10px; }
         .address-group .city { flex-grow: 2; }
         .address-group .state, .address-group .zip { flex-grow: 1; }
-        small {
-            display: block;
-            margin-top: 5px;
-            font-style: italic;
-            color: #555;
-        }
-        .map-container {
-            position: relative;
-            padding-bottom: 75%; /* 4:3 aspect ratio */
-            height: 0;
-            overflow: hidden;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-        .map-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-        button {
-            padding: 12px 25px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #results {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        .pre-qualified {
-            background-color: #e7f4e7;
-            border: 1px solid #d0e9d0;
-        }
-        .not-qualified {
-            background-color: #fce8e6;
-            border: 1px solid #f8d7da;
-        }
-        .lender-list {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #ddd;
-        }
+        small { display: block; margin-top: 5px; font-style: italic; color: #555; }
+        .map-container { position: relative; padding-bottom: 75%; height: 0; overflow: hidden; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 15px; }
+        .map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .lang-btn { padding: 8px 15px; border: 1px solid #007bff; background-color: white; color: #007bff; border-radius: 5px; cursor: pointer; margin-right: 10px;}
+        .lang-btn.active { background-color: #007bff; color: white; }
+        button[type="button"] { padding: 12px 25px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 10px;}
+        button[type="button"]:hover { background-color: #0056b3; }
+        #results { margin-top: 20px; padding: 15px; border-radius: 5px; }
+        .pre-qualified { background-color: #e7f4e7; border: 1px solid #d0e9d0; }
+        .not-qualified { background-color: #fce8e6; border: 1px solid #f8d7da; }
+        .lender-list { margin-top: 20px; padding-top: 15px; border-top: 1px solid #ddd; }
+        .es { display: none; } /* Hide Spanish by default */
     </style>
 </head>
 <body>
 
     <div class="form-container">
-        <h1>Impact Loan Fund: Business Loan Inquiry</h1>
-        <p>Fields marked with an asterisk (*) are required.</p>
+        <div class="lang-selector">
+            <button id="lang-en" class="lang-btn active" onclick="setLanguage('en')">English</button>
+            <button id="lang-es" class="lang-btn" onclick="setLanguage('es')">Español</button>
+        </div>
+        <hr style="margin-top: 20px;">
+        
+        <h1 class="en">Impact Loan Fund: Business Loan Inquiry</h1>
+        <h1 class="es">Impact Loan Fund: Solicitud de Préstamo para Negocios</h1>
+
+        <p class="en">Fields marked with an asterisk (*) are required.</p>
+        <p class="es">Los campos marcados con un asterisco (*) son obligatorios.</p>
 
         <form id="loanInquiryForm">
             <div class="form-group">
-                <p>What is the name of your business?*</p>
+                <p><span class="en">What is the name of your business?*</span><span class="es">¿Cuál es el nombre de su negocio?*</span></p>
                 <input type="text" name="businessName" required>
             </div>
             <div class="form-group">
-                <p>Where is the primary location of your business (address)?*</p>
-                <label for="street">Street Address</label><br>
+                <p><span class="en">Where is the primary location of your business (address)?*</span><span class="es">¿Dónde está la ubicación principal de su negocio (dirección)?*</span></p>
+                <label for="street"><span class="en">Street Address</span><span class="es">Dirección</span></label><br>
                 <input type="text" id="street" name="streetAddress" required><br><br>
                 <div class="address-group">
                     <div class="city">
-                        <label for="city">City</label><br>
+                        <label for="city"><span class="en">City</span><span class="es">Ciudad</span></label><br>
                         <input type="text" id="city" name="city" required>
                     </div>
                     <div class="state">
-                        <label for="state">State</label><br>
+                        <label for="state"><span class="en">State</span><span class="es">Estado</span></label><br>
                         <input type="text" id="state" name="state" required>
                     </div>
                     <div class="zip">
-                        <label for="zip">ZIP</label><br>
+                        <label for="zip"><span class="en">ZIP</span><span class="es">Código Postal</span></label><br>
                         <input type="text" id="zip" name="zip" required>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <p>Who is the contact person?*</p>
+                <p><span class="en">Who is the contact person?*</span><span class="es">¿Quién es la persona de contacto?*</span></p>
                 <input type="text" name="contactPerson" required>
             </div>
             <div class="form-group">
-                <p>What is the best way to contact you?*</p>
-                <label for="phone">Phone Number</label><br>
+                <p><span class="en">What is the best way to contact you?*</span><span class="es">¿Cuál es la mejor manera de contactarle?*</span></p>
+                <label for="phone"><span class="en">Phone Number</span><span class="es">Número de Teléfono</span></label><br>
                 <input type="tel" id="phone" name="phone" required><br><br>
-                <label for="email">Email address</label><br>
+                <label for="email"><span class="en">Email address</span><span class="es">Correo Electrónico</span></label><br>
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="question">
-                <p>Can we text you?*</p>
-                <input type="radio" name="canText" value="yes" required> Yes
+                <p><span class="en">Can we text you?*</span><span class="es">¿Podemos enviarle mensajes de texto?*</span></p>
+                <input type="radio" name="canText" value="yes" required> <span class="en">Yes</span><span class="es">Sí</span>
                 <input type="radio" name="canText" value="no"> No
             </div>
             
             <div class="form-group">
-                <p>What loan amount are you seeking?*</p>
+                <p><span class="en">What loan amount are you seeking?*</span><span class="es">¿Qué monto de préstamo solicita?*</span></p>
                 <input type="number" name="loanAmount" placeholder="e.g., 50000" required>
-                <small>Note: Loan amounts range from $25,000 to $250,000. </small>
+                <small><span class="en">Note: Loan amounts range from $25,000 to $250,000.</span><span class="es">Nota: Los montos de los préstamos oscilan entre $25,000 y $250,000.</span></small>
             </div>
             <div class="form-group">
-                <p>Please tell us a little bit about what your financing need is?*</p>
+                <p><span class="en">Please tell us a little bit about what your financing need is?*</span><span class="es">Por favor, cuéntenos un poco sobre su necesidad de financiamiento.*</span></p>
                 <textarea name="financingNeed" required></textarea>
-                <small>Eligible uses include Business Expansion, Equipment, Building Improvements, Working Capital, and Building Acquisition. </small>
+                <small><span class="en">Eligible uses include Business Expansion, Equipment, Building Improvements, Working Capital, and Building Acquisition.</span><span class="es">Los usos elegibles incluyen Expansión del Negocio, Equipos, Mejoras de Edificios, Capital de Trabajo y Adquisición de Edificios.</span></small>
             </div>
             
             <hr>
-            <h3 style="margin-top: 30px;">Pre-Qualification Checklist</h3>
+            <h3 style="margin-top: 30px;"><span class="en">Pre-Qualification Checklist</span><span class="es">Lista de Precalificación</span></h3>
 
             <div class="question">
-                 <p>Use the map below to confirm your business is in the service area, you may have to zoom in to Philadelphia to see the boundries of our  market. Please note that the orange boundries are for our Jumpstart Kensington real estate development program and not related to our business loans </p>
+                 <p><span class="en">Use the map below to confirm your business is in the service area.</span><span class="es">Use el mapa a continuación para confirmar que su negocio está en el área de servicio.</span></p>
                 <div class="map-container">
                     <iframe src="https://www.google.com/maps/d/embed?mid=1zJcH5Xz2itUJdgzz5sDKUwqI6Z3Yb7M&ehbc=2E312F"></iframe>
                 </div>
             </div>
 
             <div class="question">
-                <p>Is your business located within the Greater Kensington area?*</p>
-                <input type="radio" name="inKensington" value="yes" required> Yes
+                <p><span class="en">Is your business located within the Greater Kensington area?*</span><span class="es">¿Su negocio está ubicado en el área del Gran Kensington?*</span></p>
+                <input type="radio" name="inKensington" value="yes" required> <span class="en">Yes</span><span class="es">Sí</span>
                 <input type="radio" name="inKensington" value="no"> No
-                 <small>Note: The Impact Loan Fund serves the Greater Kensington area in Lower Northeast Philadelphia. </small>
+                 <small><span class="en">Note: The Impact Loan Fund serves the Greater Kensington area in Lower Northeast Philadelphia.</span><span class="es">Nota: Impact Loan Fund sirve al área del Gran Kensington en el Bajo Noreste de Filadelfia.</span></small>
             </div>
             <div class="question">
-                <p>Is your business currently operating?*</p>
-                <input type="radio" name="isOperating" value="yes" required> Yes
+                <p><span class="en">Is your business currently operating?*</span><span class="es">¿Su negocio está operando actualmente?*</span></p>
+                <input type="radio" name="isOperating" value="yes" required> <span class="en">Yes</span><span class="es">Sí</span>
                 <input type="radio" name="isOperating" value="no"> No
-                <small>Note: ILF primarily serves existing operating businesses. </small>
+                <small><span class="en">Note: ILF primarily serves existing operating businesses.</span><span class="es">Nota: ILF sirve principalmente a negocios existentes y en operación.</span></small>
             </div>
             <div class="question">
-                <p>Are you able to provide business assets as collateral and a personal guarantee for the loan?*</p>
-                <input type="radio" name="hasCollateral" value="yes" required> Yes
+                <p><span class="en">Are you able to provide business assets as collateral and a personal guarantee for the loan?*</span><span class="es">¿Puede proporcionar activos del negocio como garantía y una garantía personal para el préstamo?*</span></p>
+                <input type="radio" name="hasCollateral" value="yes" required> <span class="en">Yes</span><span class="es">Sí</span>
                 <input type="radio" name="hasCollateral" value="no"> No
-                <small>Note: Business assets and personal guarantees are required. </small>
+                <small><span class="en">Note: Business assets and personal guarantees are required.</span><span class="es">Nota: Se requieren activos del negocio y garantías personales.</span></small>
             </div>
 
-            <button type="button" onclick="submitInquiry()">Submit Inquiry</button>
+            <button type="button" onclick="submitInquiry()"><span class="en">Submit Inquiry</span><span class="es">Enviar Solicitud</span></button>
         </form>
 
         <div id="results"></div>
     </div>
 
     <script>
+        let currentLang = 'en';
+        const messageRepo = {
+            en: {
+                alert: 'Please fill out all required fields marked with an asterisk (*).',
+                qualified_h3: 'Thank you! Your inquiry has been submitted.',
+                qualified_p1: 'Based on your answers, you appear to be a good candidate for this loan! This does not guarantee approval, but we encourage you to proceed.',
+                qualified_p2: '<strong>Next Steps:</strong> An ILF representative will review your information and contact you soon. For immediate questions, you can reach out directly:',
+                not_qualified_h3: 'Thank you for your inquiry. Based on your answers, you may not be eligible for an ILF loan at this time.',
+                not_qualified_p1: 'Here are the potential issues we identified:',
+                not_qualified_p2: 'If you believe this is incorrect or have questions, please contact the Impact Loan Fund directly.',
+                lender_list_h4: 'Alternative Lenders to Consider',
+                lender_list_p: 'While ILF may not be the right fit, other Philadelphia lenders may be able to help. Here are a few to consider based on your needs:',
+                lender_cat1_h: 'For Startups and Loans Under $50,000:',
+                lender_cat2_h: 'For General Business Lending Across Philadelphia:',
+                lender1: '<strong>Entrepreneur Works:</strong> Specializes in providing microloans and business counseling, often to startup and early-stage businesses.',
+                lender2: '<strong>Finanta:</strong> Offers a variety of loan products, including microloans for entrepreneurs who may not qualify for traditional financing.',
+                lender3: '<strong>The Enterprise Center:</strong> Focuses on supporting minority and women-owned businesses with capital and resources throughout the Philadelphia region.',
+                lender4: '<strong>PIDC (Philadelphia Industrial Development Corporation):</strong> Offers a wide range of flexible financial products to support business growth across the city.'
+            },
+            es: {
+                alert: 'Por favor, complete todos los campos obligatorios marcados con un asterisco (*).',
+                qualified_h3: '¡Gracias! Su solicitud ha sido enviada.',
+                qualified_p1: '¡Basado en sus respuestas, parece ser un buen candidato para este préstamo! Esto no garantiza la aprobación, pero le animamos a proceder.',
+                qualified_p2: '<strong>Próximos Pasos:</strong> Un representante de ILF revisará su información y se comunicará con usted pronto. Para preguntas inmediatas, puede contactarnos directamente:',
+                not_qualified_h3: 'Gracias por su consulta. Basado en sus respuestas, es posible que no sea elegible para un préstamo de ILF en este momento.',
+                not_qualified_p1: 'Estos son los posibles problemas que identificamos:',
+                not_qualified_p2: 'Si cree que esto es incorrecto o tiene preguntas, comuníquese directamente con Impact Loan Fund.',
+                lender_list_h4: 'Prestamistasa Alternativos a Considerar',
+                lender_list_p: 'Aunque ILF no sea la opción adecuada, otros prestamistas de Filadelfia podrían ayudar. Aquí hay algunos para considerar según sus necesidades:',
+                lender_cat1_h: 'Para Empresas Nuevas y Préstamos Menores de $50,000:',
+                lender_cat2_h: 'Para Préstamos Generales para Negocios en Filadelfia:',
+                lender1: '<strong>Entrepreneur Works:</strong> Se especializa en micropréstamos y asesoría empresarial, a menudo para empresas nuevas y en etapa inicial.',
+                lender2: '<strong>Finanta:</strong> Ofrece una variedad de productos de préstamo, incluidos micropréstamos para empresarios que no califican para financiamiento tradicional.',
+                lender3: '<strong>The Enterprise Center:</strong> Se enfoca en apoyar a empresas de minorías y mujeres con capital y recursos en toda la región de Filadelfia.',
+                lender4: '<strong>PIDC (Philadelphia Industrial Development Corporation):</strong> Ofrece una amplia gama de productos financieros flexibles para apoyar el crecimiento empresarial en toda la ciudad.'
+            }
+        };
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.en, .es').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.' + lang).forEach(el => el.style.display = 'inline'); // Use inline to not break layout for spans
+            document.querySelectorAll('h1, h3, p, div.form-group, div.question, small').forEach(el => { // Handle block elements separately
+                if (el.classList.contains(lang)) {
+                    el.style.display = 'block';
+                }
+            });
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+            document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+        }
+
         function submitInquiry() {
             const form = document.getElementById('loanInquiryForm');
             const resultsDiv = document.getElementById('results');
@@ -199,7 +191,7 @@
             resultsDiv.className = '';
 
             if (!form.checkValidity()) {
-                alert('Please fill out all required fields marked with an asterisk (*).');
+                alert(messageRepo[currentLang].alert);
                 return;
             }
 
@@ -209,63 +201,52 @@
             const hasCollateral = form.elements['hasCollateral'].value;
 
             let issues = [];
+            const msgs = messageRepo[currentLang];
 
             if (isNaN(loanAmount) || loanAmount < 25000 || loanAmount > 250000) {
-                issues.push('Your requested loan amount is outside the $25,000 to $250,000 range. ');
+                issues.push(currentLang === 'en' ? 'Your requested loan amount is outside the $25,000 to $250,000 range.' : 'El monto de su préstamo solicitado está fuera del rango de $25,000 a $250,000.');
             }
             if (inKensington !== 'yes') {
-                issues.push('Your business appears to be outside the Greater Kensington service area. ');
+                issues.push(currentLang === 'en' ? 'Your business appears to be outside the Greater Kensington service area.' : 'Su negocio parece estar fuera del área de servicio del Gran Kensington.');
             }
             if (isOperating !== 'yes') {
-                issues.push('The fund is primarily for existing, operating businesses. ');
+                issues.push(currentLang === 'en' ? 'The fund is primarily for existing, operating businesses.' : 'El fondo es principalmente para negocios existentes y en operación.');
             }
             if (hasCollateral !== 'yes') {
-                issues.push('Collateral and a personal guarantee are required for all loans. ');
+                issues.push(currentLang === 'en' ? 'Collateral and a personal guarantee are required for all loans.' : 'Se requiere garantía y una garantía personal para todos los préstamos.');
             }
 
             if (issues.length > 0) {
                 resultsDiv.classList.add('not-qualified');
-                let message = '<h3>Thank you for your inquiry. Based on your answers, you may not be eligible for an ILF loan at this time.</h3>';
-                message += '<p>Here are the potential issues we identified:</p><ul>';
-                issues.forEach(issue => {
-                    message += `<li>${issue}</li>`;
-                });
-                message += '</ul>';
-                
-                message += `<div class="lender-list">
-                               <h4>Alternative Lenders to Consider</h4>
-                               <p>While ILF may not be the right fit, other Philadelphia lenders may be able to help. Here are a few to consider based on your needs:</p>
-                               <p><strong>For Startups and Loans Under $50,000:</strong></p>
-                               <ul>
-                                   <li><strong>Entrepreneur Works:</strong> Specializes in providing microloans and business counseling, often to startup and early-stage businesses.</li>
-                                   <li><strong>Finanta:</strong> Offers a variety of loan products, including microloans for entrepreneurs who may not qualify for traditional financing.</li>
-                               </ul>
-                               <p><strong>For General Business Lending Across Philadelphia:</strong></p>
-                               <ul>
-                                   <li><strong>The Enterprise Center:</strong> Focuses on supporting minority and women-owned businesses with capital and resources throughout the Philadelphia region.</li>
-                                   <li><strong>PIDC (Philadelphia Industrial Development Corporation):</strong> Offers a wide range of flexible financial products to support business growth across the city.</li>
-                               </ul>
+                let message = `<h3>${msgs.not_qualified_h3}</h3><p>${msgs.not_qualified_p1}</p><ul>`;
+                issues.forEach(issue => { message += `<li>${issue}</li>`; });
+                message += `</ul><div class="lender-list">
+                               <h4>${msgs.lender_list_h4}</h4><p>${msgs.lender_list_p}</p>
+                               <p><strong>${msgs.lender_cat1_h}</strong></p>
+                               <ul><li>${msgs.lender1}</li><li>${msgs.lender2}</li></ul>
+                               <p><strong>${msgs.lender_cat2_h}</strong></p>
+                               <ul><li>${msgs.lender3}</li><li>${msgs.lender4}</li></ul>
                            </div>`;
-
                 resultsDiv.innerHTML = message;
-
             } else {
                 resultsDiv.classList.add('pre-qualified');
-                let message = '<h3>Thank you! Your inquiry has been submitted.</h3>';
-                message += '<p>Based on your answers, you appear to be a good candidate for this loan! This does not guarantee approval, but we encourage you to proceed.</p>';
-                message += '<p><strong>Next Steps:</strong> An ILF representative will review your information and contact you soon. For immediate questions, you can reach out directly:</p>';
-                message += `<ul>
-                                <li><strong>Email:</strong> loan@impactservices.org </li>
-                                <li><strong>Call:</strong> (215) 974-0900 </li>
-                           </ul>`;
+                let message = `<h3>${msgs.qualified_h3}</h3><p>${msgs.qualified_p1}</p><p>${msgs.qualified_p2}</p>
+                               <ul>
+                                   <li><strong>Email:</strong> loan@impactservices.org</li>
+                                   <li><strong><span class="en">Call</span><span class="es">Llamar</span>:</strong> (215) 974-0900</li>
+                               </ul>`;
                 resultsDiv.innerHTML = message;
                 form.reset();
             }
+            // Ensure the language of the results matches the selected language
+            setLanguage(currentLang);
         }
+        
+        // Initialize the form in English on page load
+        document.addEventListener('DOMContentLoaded', () => setLanguage('en'));
     </script>
 
 </body>
 </html>
-
 </body>
 </html>
